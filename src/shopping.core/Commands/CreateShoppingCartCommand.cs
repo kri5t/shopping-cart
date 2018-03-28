@@ -37,6 +37,7 @@ namespace Shopping.Core.Commands
                 Uid = Guid.NewGuid()
             };
             await _database.ShoppingCarts.AddAsync(shoppingCart, cancellationToken);
+            await _database.SaveChangesAsync(cancellationToken);
             return new CreateShoppingCartResponse(shoppingCart.Uid);
         }
     }
