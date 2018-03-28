@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shopping.Core.Infrastructure;
 
-namespace shopping.webapi
+namespace Shopping.Webapi
 {
     public class Startup
     {
@@ -16,6 +17,7 @@ namespace shopping.webapi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.InstallCore();
             services.AddMvc();
         }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace shopping.webapi
+namespace Shopping.Webapi
 {
     public class Program
     {

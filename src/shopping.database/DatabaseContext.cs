@@ -1,14 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using shopping.database.Models;
+using Shopping.Database.Models;
 
-namespace shopping.database
+namespace Shopping.Database
 {
     public class DatabaseContext : DbContext
     {
         public DbSet<Item> Items { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
+        public DatabaseContext(DbContextOptions<DatabaseContext> options)
+            : base(options)
+        { }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=shopping.db");

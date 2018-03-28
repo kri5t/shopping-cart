@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace shopping.database.Models
+namespace Shopping.Database.Models
 {
     public class Item
     {

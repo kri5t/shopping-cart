@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace shopping.database.Migrations
+namespace Shopping.Database.Migrations
 {
     public partial class InitialCreate : Migration
     {

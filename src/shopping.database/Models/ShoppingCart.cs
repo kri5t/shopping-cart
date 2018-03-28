@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace shopping.database.Models
+namespace Shopping.Database.Models
 {
     public class ShoppingCart
     {
+        public ShoppingCart()
+        {
+            Items = new List<Item>();
+        }
         public int Id { get; set; }
         public Guid Uid { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
