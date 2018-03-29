@@ -25,7 +25,12 @@ namespace Shopping.UnitTest.Helpers
         public static void VerifyItemList(
             this List<ItemResponse> items, Guid uid, DateTimeOffset createdDate, string description, int quantity)
         {
-            var item = items.Single();
+            items.Single().VerifyItem(uid, createdDate, description, quantity);
+        }
+        
+        public static void VerifyItem(
+            this ItemResponse item, Guid uid, DateTimeOffset createdDate, string description, int quantity)
+        {
             Assert.Equal(uid, item.Uid);
             Assert.Equal(createdDate, item.CreatedDate);
             Assert.Equal(createdDate, item.UpdatedDate);

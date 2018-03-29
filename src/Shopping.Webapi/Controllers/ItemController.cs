@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Core.Commands.Item;
+using Shopping.Core.Queries.Item;
 
 namespace Shopping.Webapi.Controllers
 {
@@ -19,13 +20,17 @@ namespace Shopping.Webapi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(Guid shoppingCartUid)
         {
-            throw new NotImplementedException();
+            return MapToResult(
+                await _mediator.Send(new GetItemsQuery(shoppingCartUid)), 
+                result => Ok(result.Items)); 
         }
 
         [HttpGet("{uid}")]
         public async Task<IActionResult> Get(Guid shoppingCartUid, Guid uid)
         {
-            throw new NotImplementedException();
+            return MapToResult(
+                await _mediator.Send(new GetItemQuery(uid)), 
+                result => Ok(result.ItemResponse)); 
         }
 
         [HttpPost]
