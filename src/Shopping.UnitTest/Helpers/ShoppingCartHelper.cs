@@ -12,8 +12,7 @@ namespace Shopping.UnitTest.Helpers
             Guid uid, 
             bool addItem = false, 
             string description = "", 
-            int quantity = 0
-        )
+            int quantity = 0)
         {
             var shoppingCart = new ShoppingCart
             {
@@ -21,19 +20,30 @@ namespace Shopping.UnitTest.Helpers
                 Uid = uid,
                 UpdatedDate = createdDate,
             };
-            if(addItem){
-                shoppingCart.Items.Add(new Item
-                {
-                    CreatedDate = createdDate,
-                    UpdatedDate = createdDate,
-                    Description = description,
-                    Quantity = quantity,
-                    Uid = uid
-                });
+            if(addItem)
+            {
+                shoppingCart.AddItemToShoppingCart(createdDate, uid, description, quantity);
             }
             
             context.ShoppingCarts.Add(shoppingCart);
             context.SaveChanges();
+        }
+
+        public static void AddItemToShoppingCart(
+            this ShoppingCart shoppingCart,
+            DateTimeOffset createdDate, 
+            Guid uid,
+            string description = "", 
+            int quantity = 0)
+        {
+            shoppingCart.Items.Add(new Item
+            {
+                CreatedDate = createdDate,
+                UpdatedDate = createdDate,
+                Description = description,
+                Quantity = quantity,
+                Uid = uid
+            });
         }
     }
 }

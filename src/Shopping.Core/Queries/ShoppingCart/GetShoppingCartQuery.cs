@@ -8,7 +8,7 @@ using Shopping.Core.Infrastructure.Mediation;
 using Shopping.Core.Responses;
 using Shopping.Database;
 
-namespace Shopping.Core.Queries
+namespace Shopping.Core.Queries.ShoppingCart
 {
     public class GetShoppingCartQuery : IRequest<GetShoppingCartResponse>
     {

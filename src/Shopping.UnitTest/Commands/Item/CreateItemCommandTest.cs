@@ -35,6 +35,7 @@ namespace Shopping.UnitTest.Commands.Item
             Assert.False(result.HasError);
             Assert.NotEmpty(_dbContext.Items);
             Assert.NotEmpty(_dbContext.ShoppingCarts.Single().Items);
+            Assert.Equal(_createdDate, _dbContext.ShoppingCarts.Single().UpdatedDate);
         } 
         
         [Fact]

@@ -8,7 +8,7 @@ using Shopping.UnitTest.Helpers;
 using Shopping.UnitTest.Infrastructure;
 using Xunit;
 
-namespace Shopping.UnitTest.Queries
+namespace Shopping.UnitTest.Queries.ShoppingCart
 {
     public class GetShoppingCartsQueryTest : EfContextTest<DatabaseContextFactory, DatabaseContext>
     {

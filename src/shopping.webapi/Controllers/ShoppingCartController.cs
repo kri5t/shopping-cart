@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shopping.Core.Commands;
 using Shopping.Core.Commands.ShoppingCart;
 using Shopping.Core.Queries;
+using Shopping.Core.Queries.ShoppingCart;
 
 namespace Shopping.Webapi.Controllers
 {

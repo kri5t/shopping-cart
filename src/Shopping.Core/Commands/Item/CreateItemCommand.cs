@@ -43,6 +43,8 @@ namespace Shopping.Core.Commands.Item
             if (shoppingCart == null)
                 return Error(ErrorCode.NotFound, $"No shopping cart was found with {request.ShoppingCartUid}");
 
+            shoppingCart.UpdatedDate = request.CreatedDate;
+            
             var item = new Database.Models.Item
             {
                 CreatedDate = request.CreatedDate,

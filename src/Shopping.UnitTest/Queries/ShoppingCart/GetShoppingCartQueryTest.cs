@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shopping.Core.Queries;
+using Shopping.Core.Queries.ShoppingCart;
 using Shopping.Database;
 using Shopping.UnitTest.Helpers;
 using Shopping.UnitTest.Infrastructure;
 using Xunit;
 
-namespace Shopping.UnitTest.Queries
+namespace Shopping.UnitTest.Queries.ShoppingCart
 {
     public class GetShoppingCartQueryTest : EfContextTest<DatabaseContextFactory, DatabaseContext>
     {
