@@ -39,9 +39,10 @@ namespace Shopping.Webapi.Controllers
         }
 
         [HttpDelete("{uid}")]
-        public void Delete(Guid uid)
+        public async Task<IActionResult> Delete(Guid uid)
         {
-            throw new NotImplementedException();
+            return MapToResult(await _mediator.Send(new DeleteShoppingCartCommand(uid)), 
+                result => Ok());
         }
     }
 }

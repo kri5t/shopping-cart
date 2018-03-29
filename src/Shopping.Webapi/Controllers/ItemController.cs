@@ -16,7 +16,7 @@ namespace Shopping.Webapi.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> Get(bool includeItems = false)
+        public async Task<IActionResult> Get()
         {
             throw new NotImplementedException();
         }
