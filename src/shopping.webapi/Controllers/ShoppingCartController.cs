@@ -68,5 +68,17 @@ namespace Shopping.Webapi.Controllers
             return MapToResult(await _mediator.Send(new DeleteShoppingCartCommand(uid)), 
                 result => Ok());
         }
+        
+        /// <summary>
+        /// Empty the shopping cart
+        /// </summary>
+        /// <param name="uid"> The uid of the shopping cart to empty </param>
+        /// <returns> Ok if the cart was emptied </returns>
+        [HttpDelete("{uid}/empty")]
+        public async Task<IActionResult> Empty(Guid uid)
+        {
+            return MapToResult(await _mediator.Send(new DeleteShoppingCartCommand(uid)), 
+                result => Ok());
+        }
     }
 }

@@ -2,14 +2,13 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Shopping.Core.Commands;
 using Shopping.Core.Commands.ShoppingCart;
 using Shopping.Database;
 using Shopping.UnitTest.Helpers;
 using Shopping.UnitTest.Infrastructure;
 using Xunit;
 
-namespace Shopping.UnitTest.Commands
+namespace Shopping.UnitTest.Commands.ShoppingCart
 {
     public class DeleteShoppingCartCommandTest : EfContextTest<DatabaseContextFactory, DatabaseContext>
     {
