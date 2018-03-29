@@ -15,6 +15,8 @@ namespace Shopping.UnitTest.Queries
     {
         private readonly DatabaseContext _context;
         private readonly GetShoppingCartsQueryHandler _sut;
+        private readonly Guid _uid = Guid.NewGuid();
+        private readonly DateTimeOffset _createdDate = DateTimeOffset.UtcNow;
 
         public GetShoppingCartsQueryTest()
         {
@@ -25,29 +27,25 @@ namespace Shopping.UnitTest.Queries
         [Fact]
         public async Task Get_shopping_carts_returns_correct_list_of_carts()
         {
-            var createdDate = DateTimeOffset.UtcNow;
-            var uid = Guid.NewGuid();
-            _context.AddShoppingCartToContext(createdDate, uid);
+            _context.AddShoppingCartToContext(_createdDate, _uid);
             var result = await _sut.Handle(new GetShoppingCartsQuery(), CancellationToken.None);
             Assert.False(result.HasError);
             var carts = result.ShoppingCarts;
             Assert.NotEmpty(carts);
-            carts.Single().VerifyShoppingCart(uid, createdDate, true);
+            carts.Single().VerifyShoppingCart(_uid, _createdDate, true);
         }
         
         [Fact]
         public async Task Get_shopping_cart_returns_correct_item_model()
         {
-            var createdDate = DateTimeOffset.UtcNow;
-            var uid = Guid.NewGuid();
             var description = "description";
             var quantity = 2;
-            _context.AddShoppingCartToContext(createdDate, uid, true, description, quantity);
+            _context.AddShoppingCartToContext(_createdDate, _uid, true, description, quantity);
             var result = await _sut.Handle(new GetShoppingCartsQuery(), CancellationToken.None);
             Assert.False(result.HasError);
             var carts = result.ShoppingCarts;
             Assert.NotEmpty(carts);
-            carts.Single().ItemList.VerifyItemList(uid, createdDate, description, quantity);
+            carts.Single().ItemList.VerifyItemList(_uid, _createdDate, description, quantity);
         }
 
         [Fact]
