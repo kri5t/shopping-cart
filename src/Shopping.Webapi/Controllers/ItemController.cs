@@ -42,10 +42,20 @@ namespace Shopping.Webapi.Controllers
                 result => Ok(new {result.ItemUid}));
         }
 
-        [HttpDelete("{uid}")]
-        public void Delete(Guid shoppingCartUid, Guid uid)
+        [HttpPut("{uid}")]
+        public async Task<IActionResult> Put(Guid uid, [FromBody]CreateItemRequestModel model)
         {
-            throw new NotImplementedException();
+            return MapToResult(
+                await _mediator.Send(new UpdateItemCommand(DateTimeOffset.UtcNow, uid, model.Description, model.Quantity)), 
+                result => Ok());
+        }
+        
+        [HttpDelete("{uid}")]
+        public async Task<IActionResult> Delete(Guid uid)
+        {
+            return MapToResult(
+                await _mediator.Send(new DeleteItemCommand(uid)), 
+                result => Ok());
         }
     }
 }
