@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.Configuration;
 using Shopping.Database.Models;
 
 namespace Shopping.Database
@@ -15,8 +17,15 @@ namespace Shopping.Database
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if(!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlite("Data Source=shopping.db");
+            if (optionsBuilder.IsConfigured) 
+                return;
+            
+            var configuration = new ConfigurationBuilder()  
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)       
+                .AddJsonFile("appsettings.json")
+                .Build();
+            
+            optionsBuilder.UseSqlite(configuration.GetConnectionString("Defa‌​ultConnection"));
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

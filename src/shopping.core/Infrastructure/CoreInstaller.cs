@@ -8,10 +8,11 @@ namespace Shopping.Core.Infrastructure
 {
     public static class CoreInstaller
     {
-        public static IServiceCollection InstallCore(this IServiceCollection services)
+        public static IServiceCollection InstallCore(this IServiceCollection services, string databaseConnectionString)
         {
-            services.AddMediatR(typeof(CoreInstaller).GetTypeInfo().Assembly);
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlite("Data Source=shopping.db"));
+            var currentAssembly = typeof(CoreInstaller).GetTypeInfo().Assembly;
+            services.AddMediatR(currentAssembly);
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlite(databaseConnectionString));
             return services;
         }
     }

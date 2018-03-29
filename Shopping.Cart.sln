@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Core", "src\Shoppi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.UnitTest", "src\Shopping.UnitTest\Shopping.UnitTest.csproj", "{1FB9CDEC-867B-467C-ACD3-5D4B41ED58C0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectFiles", "ProjectFiles", "{7EB0D88C-E635-4A7B-823B-4E96DB565463}"
+ProjectSection(SolutionItems) = preProject
+	gitignore = .gitignore
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

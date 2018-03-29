@@ -17,7 +17,8 @@ namespace Shopping.Webapi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.InstallCore();
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.InstallCore(connectionString);
             services.AddMvc();
         }
 
