@@ -4,10 +4,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Core.Commands.Item;
 using Shopping.Core.Queries.Item;
+using Shopping.Webapi.RequestModel.Item;
 
 namespace Shopping.Webapi.Controllers
 {
-    [Route("api/v1/shoppingcart/{shoppingcartuid}/item")]
+    [Route("api/v1/shoppingcarts/{shoppingcartuid}/items")]
     public class ItemController : BaseController
     {
         private readonly IMediator _mediator;
@@ -34,10 +35,10 @@ namespace Shopping.Webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Guid shoppingCartUid, [FromBody]string description, [FromBody] int quantity)
+        public async Task<IActionResult> Post(Guid shoppingCartUid, [FromBody]CreateItemRequestModel model)
         {
             return MapToResult(
-                await _mediator.Send(new CreateItemCommand(shoppingCartUid, DateTimeOffset.UtcNow, description, quantity)), 
+                await _mediator.Send(new CreateItemCommand(shoppingCartUid, DateTimeOffset.UtcNow, model.Description, model.Quantity)), 
                 result => Ok(new {result.ItemUid}));
         }
 

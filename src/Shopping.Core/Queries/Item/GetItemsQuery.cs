@@ -35,7 +35,8 @@ namespace Shopping.Core.Queries.Item
         public override async Task<GetItemsResponse> Handle(GetItemsQuery request, CancellationToken cancellationToken)
         {
             var shoppingCart = 
-                await _databaseContext.ShoppingCarts.SingleOrDefaultAsync(sc => sc.Uid == request.ShoppingCartUid, cancellationToken);
+                await _databaseContext.ShoppingCarts.Include(sc => sc.Items)
+                    .SingleOrDefaultAsync(sc => sc.Uid == request.ShoppingCartUid, cancellationToken);
             
             if (shoppingCart == null)
                 return Error(ErrorCode.NotFound, $"No shopping cart was found with {request.ShoppingCartUid}");

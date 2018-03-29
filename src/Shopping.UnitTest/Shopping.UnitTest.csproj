@@ -14,5 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Shopping.Core\Shopping.Core.csproj" />
     <ProjectReference Include="..\Shopping.Database\Shopping.Database.csproj" />
+    <ProjectReference Include="..\Shopping.Webapi\Shopping.Webapi.csproj" />
   </ItemGroup>
 </Project>

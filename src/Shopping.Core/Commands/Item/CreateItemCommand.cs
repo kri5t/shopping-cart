@@ -43,6 +43,12 @@ namespace Shopping.Core.Commands.Item
             if (shoppingCart == null)
                 return Error(ErrorCode.NotFound, $"No shopping cart was found with {request.ShoppingCartUid}");
 
+            if(request.Quantity <= 0)
+                return Error(ErrorCode.NotValid, "Quantity cannot be less than 0");
+                
+            if(string.IsNullOrWhiteSpace(request.Description))
+                return Error(ErrorCode.NotValid, "Description cannot be empty");
+            
             shoppingCart.UpdatedDate = request.CreatedDate;
             
             var item = new Database.Models.Item
@@ -51,7 +57,8 @@ namespace Shopping.Core.Commands.Item
                 Description = request.Description,
                 Quantity = request.Quantity,
                 UpdatedDate = request.CreatedDate,
-                ShoppingCartId = shoppingCart.Id
+                ShoppingCartId = shoppingCart.Id,
+                Uid = Guid.NewGuid()
             };
             _databaseContext.Items.Add(item);
             await _databaseContext.SaveChangesAsync(cancellationToken);

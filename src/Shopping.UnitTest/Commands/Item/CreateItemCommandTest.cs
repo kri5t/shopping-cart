@@ -60,5 +60,23 @@ namespace Shopping.UnitTest.Commands.Item
             Assert.True(result.HasError);
             Assert.Equal(ErrorCode.NotFound, result.ErrorCode);
         }
+        
+        [Fact]
+        public async Task Create_item_command_with_negative_quantity_fails()
+        {
+            var result = await _sut.Handle(new CreateItemCommand(_uid, _createdDate, Description, -10), CancellationToken.None);
+            
+            Assert.True(result.HasError);
+            Assert.Equal(ErrorCode.NotValid, result.ErrorCode);
+        }
+        
+        [Fact]
+        public async Task Create_item_command_with_empty_description_fails()
+        {
+            var result = await _sut.Handle(new CreateItemCommand(_uid, _createdDate, "", 10), CancellationToken.None);
+            
+            Assert.True(result.HasError);
+            Assert.Equal(ErrorCode.NotValid, result.ErrorCode);
+        }
     }
 }

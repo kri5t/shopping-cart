@@ -12,7 +12,7 @@ namespace Shopping.Webapi.Controllers
     /// <summary>
     /// Shopping cart controller - Get a new shopping cart
     /// </summary>
-    [Route("api/v1/shoppingcart")]
+    [Route("api/v1/shoppingcarts")]
     public class ShoppingCartController : BaseController
     {
         private readonly IMediator _mediator;
