@@ -5,9 +5,8 @@ using JetBrains.Annotations;
 using MediatR;
 using Shopping.Core.Infrastructure.Mediation;
 using Shopping.Database;
-using Shopping.Database.Models;
 
-namespace Shopping.Core.Commands
+namespace Shopping.Core.Commands.ShoppingCart
 {
     public class CreateShoppingCartCommand : IRequest<CreateShoppingCartResponse>
     {
@@ -30,7 +29,7 @@ namespace Shopping.Core.Commands
         
         public async Task<CreateShoppingCartResponse> Handle(CreateShoppingCartCommand request, CancellationToken cancellationToken)
         {
-            var shoppingCart = new ShoppingCart
+            var shoppingCart = new Database.Models.ShoppingCart
             {
                 CreatedDate = request.CreatedDate,
                 UpdatedDate = request.CreatedDate,

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shopping.Core.Commands.Item;
 
 namespace Shopping.Webapi.Controllers
 {
@@ -16,25 +17,27 @@ namespace Shopping.Webapi.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(Guid shoppingCartUid)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet("{uid}")]
-        public async Task<IActionResult> Get(Guid uid)
+        public async Task<IActionResult> Get(Guid shoppingCartUid, Guid uid)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post(Guid shoppingCartUid, [FromBody]string description, [FromBody] int quantity)
         {
-            throw new NotImplementedException();
+            return MapToResult(
+                await _mediator.Send(new CreateItemCommand(shoppingCartUid, DateTimeOffset.UtcNow, description, quantity)), 
+                result => Ok(new {result.ItemUid}));
         }
 
         [HttpDelete("{uid}")]
-        public void Delete(Guid uid)
+        public void Delete(Guid shoppingCartUid, Guid uid)
         {
             throw new NotImplementedException();
         }

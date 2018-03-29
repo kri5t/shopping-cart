@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Infrastructure.Mediation;
 using Shopping.Database;
 
-namespace Shopping.Core.Commands
+namespace Shopping.Core.Commands.ShoppingCart
 {
     public class DeleteShoppingCartCommand : IRequest<VoidResponse>
     {

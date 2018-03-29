@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Shopping.Core.Commands
+namespace Shopping.Core.Commands.ShoppingCart
 {
     public class AddItemToShoppingCartCommand : IRequest<string>
     {

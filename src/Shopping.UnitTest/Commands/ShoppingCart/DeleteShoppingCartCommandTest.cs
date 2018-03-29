@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Shopping.Core.Commands;
+using Shopping.Core.Commands.ShoppingCart;
 using Shopping.Database;
 using Shopping.UnitTest.Helpers;
 using Shopping.UnitTest.Infrastructure;

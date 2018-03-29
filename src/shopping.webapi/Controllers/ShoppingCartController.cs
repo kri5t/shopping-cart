@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Core.Commands;
+using Shopping.Core.Commands.ShoppingCart;
 using Shopping.Core.Queries;
 
 namespace Shopping.Webapi.Controllers
