@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Core.Commands;
+using Shopping.Core.Queries;
 
 namespace Shopping.Webapi.Controllers
 {
@@ -24,10 +25,14 @@ namespace Shopping.Webapi.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{uid}")]
+        public async Task<IActionResult> Get(Guid uid)
         {
-            return "SOMETHING OLD";
+            var result = await _mediator.Send(new GetShoppingCartQuery(uid));
+            if (result.HasError)
+                return Error(result);
+            
+            return Ok(result.ShoppingCartResponse);
         }
 
         // POST api/values

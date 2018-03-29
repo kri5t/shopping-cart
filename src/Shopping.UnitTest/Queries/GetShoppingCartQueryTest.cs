@@ -28,10 +28,11 @@ namespace Shopping.UnitTest.Queries
             AddShoppingCartToContext(createdDate, uid);
             var result = await _sut.Handle(new GetShoppingCartQuery(uid), CancellationToken.None);
             Assert.False(result.HasError);
-            Assert.Equal(uid, result.Uid);
-            Assert.Equal(createdDate, result.CreatedDate);
-            Assert.Equal(createdDate, result.UpdatedDate);
-            Assert.Empty(result.ItemList);
+            var response = result.ShoppingCartResponse;
+            Assert.Equal(uid, response.Uid);
+            Assert.Equal(createdDate, response.CreatedDate);
+            Assert.Equal(createdDate, response.UpdatedDate);
+            Assert.Empty(response.ItemList);
         }
 
         private void AddShoppingCartToContext(DateTimeOffset createdDate, Guid uid)

@@ -53,6 +53,15 @@ namespace Shopping.Core.Queries
     {
         public GetShoppingCartResponse(ShoppingCart shoppingCart)
         {
+            ShoppingCartResponse = new ShoppingCartResponse(shoppingCart);
+        }
+        public ShoppingCartResponse ShoppingCartResponse { get; set; }
+    }
+
+    public class ShoppingCartResponse
+    {
+        public ShoppingCartResponse(ShoppingCart shoppingCart)
+        {
             Uid = shoppingCart.Uid;
             CreatedDate = shoppingCart.CreatedDate;
             UpdatedDate = shoppingCart.UpdatedDate;
@@ -71,7 +80,7 @@ namespace Shopping.Core.Queries
         public DateTimeOffset CreatedDate { get; set; }
         public Guid Uid { get; set; }
     }
-
+    
     public class ItemResponse
     {
         public string Description { get; set; }
