@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,45 +16,32 @@ namespace Shopping.Webapi.Controllers
         {
             _mediator = mediator;
         }
-        // GET api/values
+        
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get(bool includeItems = false)
         {
-            return new string[] { "SOMETHING NEW" };
+            return MapToResult(await _mediator.Send(new GetShoppingCartsQuery(includeItems)), 
+                               result => Ok(result.ShoppingCarts));
         }
 
-        // GET api/values/5
         [HttpGet("{uid}")]
         public async Task<IActionResult> Get(Guid uid)
         {
-            var result = await _mediator.Send(new GetShoppingCartQuery(uid));
-            if (result.HasError)
-                return Error(result);
-            
-            return Ok(result.ShoppingCartResponse);
+            return MapToResult(await _mediator.Send(new GetShoppingCartQuery(uid)), 
+                result => Ok(result.ShoppingCartResponse));
         }
 
-        // POST api/values
         [HttpPost]
         public async Task<IActionResult> Post()
         {
-            var result = await _mediator.Send(new CreateShoppingCartCommand(DateTimeOffset.UtcNow));
-            if (result.HasError)
-                return Error(result);
-            
-            return Ok(result.ShoppingCartUid);
+            return MapToResult(await _mediator.Send(new CreateShoppingCartCommand(DateTimeOffset.UtcNow)), 
+                result => Ok(new {result.ShoppingCartUid}));
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpDelete("{uid}")]
+        public void Delete(Guid uid)
         {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            throw new NotImplementedException();
         }
     }
 }

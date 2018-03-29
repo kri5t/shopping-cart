@@ -6,9 +6,18 @@ namespace Shopping.Webapi.Controllers
 {
     public class BaseController : Controller
     {
+        protected IActionResult MapToResult<TResponse>(TResponse response, Func<TResponse, IActionResult> result) 
+            where TResponse : BaseResponse
+        {
+            if (response.HasError)
+                return Error(response);
+            return result(response);
+        }
+        
         protected IActionResult Error(BaseResponse response)
         {
-            return ConvertToHttpResponse(response.ErrorCode, string.Format("Query failed with error {0} and code {1}", response.ErrorMessage, response.ErrorCode));
+            return ConvertToHttpResponse(response.ErrorCode, 
+                string.Format("Query failed with error {0} and code {1}", response.ErrorMessage, response.ErrorCode));
         }
         
         private IActionResult ConvertToHttpResponse(ErrorCode errorCode, string message)
