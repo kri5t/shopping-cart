@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Infrastructure.Mediation;
 using Shopping.Core.Responses;
 using Shopping.Database;
-using Shopping.Database.Models;
 
 namespace Shopping.Core.Queries
 {

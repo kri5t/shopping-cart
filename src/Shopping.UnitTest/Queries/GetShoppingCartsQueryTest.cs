@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shopping.Core.Queries;
 using Shopping.Database;
-using Shopping.Database.Models;
 using Shopping.UnitTest.Helpers;
 using Shopping.UnitTest.Infrastructure;
 using Xunit;
