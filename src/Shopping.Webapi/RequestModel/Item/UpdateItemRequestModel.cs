@@ -1,6 +1,6 @@
 ﻿namespace Shopping.Webapi.RequestModel.Item
 {
-    public class CreateItemRequestModel
+    public class UpdateItemRequestModel
     {
         /// <summary>
         /// Item description
