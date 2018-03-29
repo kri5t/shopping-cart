@@ -44,16 +44,15 @@ namespace Shopping.Core.Queries
             if (shoppingCart == null)
                 return Error(ErrorCode.NotFound, "No shopping cart with the uid was found");
 
-            return new GetShoppingCartResponse(shoppingCart);
+            return new GetShoppingCartResponse
+            {
+                ShoppingCartResponse = new ShoppingCartResponse(shoppingCart)
+            };
         }
     }
 
     public class GetShoppingCartResponse : BaseResponse
     {
-        public GetShoppingCartResponse(ShoppingCart shoppingCart)
-        {
-            ShoppingCartResponse = new ShoppingCartResponse(shoppingCart);
-        }
         public ShoppingCartResponse ShoppingCartResponse { get; set; }
     }
 }
