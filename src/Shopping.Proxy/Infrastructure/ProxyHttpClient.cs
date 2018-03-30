@@ -103,18 +103,18 @@ namespace Shopping.Proxy.Infrastructure
             }
         }    
         
-        internal async Task<ModelBaseResult<TModel>> DeleteAsync<TModel>(string uri, object body = null)
+        internal async Task<ModelBaseResult<TModel>> DeleteAsync<TModel>(string uri)
         {
             using (var client = GetHttpClient()){
-                var response = await client.PutAsync(uri, Serialize(body));
+                var response = await client.DeleteAsync(uri);
                 return await MapResponseToResultWithModel<TModel>(response);
             }
         }
         
-        internal async Task<BaseResult> DeleteAsync(string uri, object body = null)
+        internal async Task<BaseResult> DeleteAsync(string uri)
         {
             using (var client = GetHttpClient()){
-                var response = await client.PutAsync(uri, Serialize(body));
+                var response = await client.DeleteAsync(uri);
                 return MapResponseToResult<BaseResult>(response);
             }
         }    

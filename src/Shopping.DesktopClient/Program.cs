@@ -14,7 +14,8 @@ namespace Shopping.DesktopClient
             var provider = services.BuildServiceProvider();
             var desktopClient = provider.GetService<DesktopClient>();
             desktopClient.RunTest().GetAwaiter().GetResult();
-            Console.WriteLine("Hello World!");
+            
+            Console.WriteLine("Done");
             Console.ReadLine();
         }
     }

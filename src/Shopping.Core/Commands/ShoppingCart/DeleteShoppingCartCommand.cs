@@ -33,6 +33,7 @@ namespace Shopping.Core.Commands.ShoppingCart
             var shoppingCart = await _databaseContext.ShoppingCarts.SingleOrDefaultAsync(sc => sc.Uid == request.Uid, cancellationToken);
             if (shoppingCart == null)
                 return Error(ErrorCode.NotFound, "No shopping cart found to delete");
+            
             _databaseContext.ShoppingCarts.Remove(shoppingCart);
             await _databaseContext.SaveChangesAsync(cancellationToken);
             return new VoidResponse();
