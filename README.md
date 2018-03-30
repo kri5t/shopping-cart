@@ -4,6 +4,10 @@
 * A DesktopClient to showcase how to use the proxy framework.
 
 # Run
+Run database creation:
+
+`dotnet build && (cd ./src/Shopping.Database/ && dotnet ef database update)`
+
 Run xUnit Tests:
 
 `dotnet build && ( cd ./src/Shopping.UnitTest/ && dotnet xunit )`
