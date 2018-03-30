@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectFiles", "ProjectFiles", "{7EB0D88C-E635-4A7B-823B-4E96DB565463}"
 ProjectSection(SolutionItems) = preProject
 	gitignore = .gitignore
+	README.md = README.md
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Proxy", "src\Shopping.Proxy\Shopping.Proxy.csproj", "{E92A00D1-386E-4366-8E17-6144BE5AA067}"
