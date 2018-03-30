@@ -20,3 +20,4 @@ Run DesktopClient:
 * Unit tests for proxy project
 * Cleanup ProxyHttpClient
 * Extract configs for project to appsettings.json
+* Add cake build script to project
