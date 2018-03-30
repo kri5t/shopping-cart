@@ -2,17 +2,11 @@
 
 namespace Shopping.Proxy.Infrastructure
 {
-    public interface IProxyHttpClientConfiguration
-    {
-        string ApiBaseUrl { get; }
-        string ApiName { get; }
-        TimeSpan Timeout { get; }
-    }
 
-    public class ProxyHttpClientConfiguration : IProxyHttpClientConfiguration
+    public class ProxyHttpClientConfiguration
     {
-        public string ApiBaseUrl { get; }
-        public string ApiName { get; }
-        public TimeSpan Timeout { get; }
+        public string ApiBaseUrl => "http://localhost:5000";
+        public string ApiName => "Shopping cart proxy";
+        public TimeSpan Timeout => TimeSpan.FromSeconds(10);
     }
 }

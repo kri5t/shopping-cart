@@ -12,9 +12,9 @@ namespace Shopping.Proxy.Infrastructure
 {
     public class ProxyHttpClient
     {
-        private readonly IProxyHttpClientConfiguration _configuration;
+        private readonly ProxyHttpClientConfiguration _configuration;
 
-        internal ProxyHttpClient(IProxyHttpClientConfiguration configuration)
+        public ProxyHttpClient(ProxyHttpClientConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -33,7 +33,7 @@ namespace Shopping.Proxy.Infrastructure
         private HttpContent Serialize(object body)
         {
             return body == null ? new StringContent(string.Empty) 
-                                : new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8);
+                                : new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
         }
 
         private async Task<(TModel, bool success, string errorMessage)> DeserializeResponse<TModel>(HttpResponseMessage response)
@@ -53,11 +53,11 @@ namespace Shopping.Proxy.Infrastructure
         {
             var result = MapResponseToResult<ModelBaseResult<TModel>>(httpResponse);
             
-            if (!httpResponse.IsSuccessStatusCode)
+            if (httpResponse.IsSuccessStatusCode)
             {
                 var deserialization = await DeserializeResponse<TModel>(httpResponse);
                 if(deserialization.success) {
-                    result.Model = deserialization.Item1;
+                    result.Result = deserialization.Item1;
                 }
             }
             return result;
@@ -71,7 +71,7 @@ namespace Shopping.Proxy.Infrastructure
             return result;
         }
         
-        protected async Task<ModelBaseResult<TModel>> PostAsync<TModel>(string uri, object body = null)
+        internal async Task<ModelBaseResult<TModel>> PostAsync<TModel>(string uri, object body = null)
         {
             using (var client = GetHttpClient()){
                 var response = await client.PostAsync(uri, Serialize(body));
@@ -79,7 +79,7 @@ namespace Shopping.Proxy.Infrastructure
             }
         }
         
-        protected async Task<BaseResult> PostAsync(string uri, object body = null)
+        internal async Task<BaseResult> PostAsync(string uri, object body = null)
         {
             using (var client = GetHttpClient()){
                 var response = await client.PostAsync(uri, Serialize(body));
@@ -87,7 +87,7 @@ namespace Shopping.Proxy.Infrastructure
             }
         }    
         
-        protected async Task<ModelBaseResult<TModel>> PutAsync<TModel>(string uri, object body = null)
+        internal async Task<ModelBaseResult<TModel>> PutAsync<TModel>(string uri, object body = null)
         {
             using (var client = GetHttpClient()){
                 var response = await client.PutAsync(uri, Serialize(body));
@@ -95,7 +95,7 @@ namespace Shopping.Proxy.Infrastructure
             }
         }
         
-        protected async Task<BaseResult> PutAsync(string uri, object body = null)
+        internal async Task<BaseResult> PutAsync(string uri, object body = null)
         {
             using (var client = GetHttpClient()){
                 var response = await client.PutAsync(uri, Serialize(body));
@@ -103,7 +103,7 @@ namespace Shopping.Proxy.Infrastructure
             }
         }    
         
-        protected async Task<ModelBaseResult<TModel>> DeleteAsync<TModel>(string uri, object body = null)
+        internal async Task<ModelBaseResult<TModel>> DeleteAsync<TModel>(string uri, object body = null)
         {
             using (var client = GetHttpClient()){
                 var response = await client.PutAsync(uri, Serialize(body));
@@ -111,7 +111,7 @@ namespace Shopping.Proxy.Infrastructure
             }
         }
         
-        protected async Task<BaseResult> DeleteAsync(string uri, object body = null)
+        internal async Task<BaseResult> DeleteAsync(string uri, object body = null)
         {
             using (var client = GetHttpClient()){
                 var response = await client.PutAsync(uri, Serialize(body));
@@ -119,12 +119,17 @@ namespace Shopping.Proxy.Infrastructure
             }
         }    
         
-        protected async Task<ModelBaseResult<TModel>> GetAsync<TModel>(string uri, Dictionary<string, string> queryParameters)
+        internal async Task<ModelBaseResult<TModel>> GetAsync<TModel>(string uri, Dictionary<string, string> queryParameters)
         {
             using (var client = GetHttpClient()){
                 var response = await client.GetAsync(QueryHelpers.AddQueryString(uri, queryParameters));
                 return await MapResponseToResultWithModel<TModel>(response);
             }
+        }
+        
+        internal async Task<ModelBaseResult<TModel>> GetAsync<TModel>(string uri)
+        {
+            return await GetAsync<TModel>(uri, new Dictionary<string, string>());
         }
     }
 }

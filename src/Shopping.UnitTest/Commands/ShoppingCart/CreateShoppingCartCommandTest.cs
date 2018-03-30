@@ -24,8 +24,8 @@ namespace Shopping.UnitTest.Commands.ShoppingCart
         {
             var result = await _sut.Handle(new CreateShoppingCartCommand(DateTimeOffset.UtcNow), CancellationToken.None);
             Assert.False(result.HasError);
-            Assert.NotEqual(Guid.Empty, result.ShoppingCartUid);
-            Assert.Single(_dbContext.ShoppingCarts, x => x.Uid == result.ShoppingCartUid);
+            Assert.NotEqual(Guid.Empty, result.Response.Uid);
+            Assert.Single(_dbContext.ShoppingCarts, x => x.Uid == result.Response.Uid);
         }
     }
 }

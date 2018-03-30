@@ -44,8 +44,8 @@ namespace Shopping.UnitTest.Commands.Item
             var result = await _sut.Handle(new CreateItemCommand(_uid, _createdDate, Description, Quantity), CancellationToken.None);
             
             Assert.False(result.HasError);
-            Assert.Contains(_dbContext.Items, x => x.Uid == result.ItemUid);
-            var item = _dbContext.Items.Single(x => x.Uid == result.ItemUid);
+            Assert.Contains(_dbContext.Items, x => x.Uid == result.Response.Uid);
+            var item = _dbContext.Items.Single(x => x.Uid == result.Response.Uid);
             Assert.Equal(Description, item.Description);
             Assert.Equal(Quantity, item.Quantity);
             Assert.Equal(_createdDate, item.CreatedDate);

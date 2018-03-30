@@ -54,7 +54,7 @@ namespace Shopping.Webapi.Controllers
         public async Task<IActionResult> Post()
         {
             return MapToResult(await _mediator.Send(new CreateShoppingCartCommand(DateTimeOffset.UtcNow)), 
-                result => Ok(new {Uid = result.ShoppingCartUid}));
+                result => Ok(result.Response));
         }
 
         /// <summary>

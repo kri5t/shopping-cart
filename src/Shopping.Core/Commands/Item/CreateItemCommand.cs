@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Infrastructure.Mediation;
 using Shopping.Database;
+using Shopping.Models.Responses;
 
 namespace Shopping.Core.Commands.Item
 {
@@ -65,13 +66,13 @@ namespace Shopping.Core.Commands.Item
             
             return new CreateItemResponse
             {
-                ItemUid = item.Uid
+                Response = new UidResponse{ Uid = item.Uid }
             };
         }
     }
     
     public class CreateItemResponse : BaseResponse
     {
-        public Guid ItemUid { get; set; }
+        public UidResponse Response { get; set; }
     }
 }

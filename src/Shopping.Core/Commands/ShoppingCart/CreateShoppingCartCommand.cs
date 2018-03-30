@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using MediatR;
 using Shopping.Core.Infrastructure.Mediation;
 using Shopping.Database;
+using Shopping.Models.Responses;
 
 namespace Shopping.Core.Commands.ShoppingCart
 {
@@ -37,17 +38,15 @@ namespace Shopping.Core.Commands.ShoppingCart
             };
             await _database.ShoppingCarts.AddAsync(shoppingCart, cancellationToken);
             await _database.SaveChangesAsync(cancellationToken);
-            return new CreateShoppingCartResponse(shoppingCart.Uid);
+            return new CreateShoppingCartResponse
+            {
+                Response = new UidResponse { Uid = shoppingCart.Uid }
+            };
         }
     }
 
     public class CreateShoppingCartResponse : BaseResponse
     {
-        public Guid ShoppingCartUid { get; }
-
-        public CreateShoppingCartResponse(Guid shoppingCartUid)
-        {
-            ShoppingCartUid = shoppingCartUid;
-        }
+        public UidResponse Response { get; set; }
     }
 }

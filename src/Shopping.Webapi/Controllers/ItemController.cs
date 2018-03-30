@@ -57,7 +57,7 @@ namespace Shopping.Webapi.Controllers
         {
             return MapToResult(
                 await _mediator.Send(new CreateItemCommand(shoppingCartUid, DateTimeOffset.UtcNow, model.Description, model.Quantity)), 
-                result => Ok(new {Uid = result.ItemUid}));
+                result => Ok(result.Response));
         }
 
         /// <summary>
