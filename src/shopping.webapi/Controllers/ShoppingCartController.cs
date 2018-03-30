@@ -54,7 +54,7 @@ namespace Shopping.Webapi.Controllers
         public async Task<IActionResult> Post()
         {
             return MapToResult(await _mediator.Send(new CreateShoppingCartCommand(DateTimeOffset.UtcNow)), 
-                result => Ok(new {result.ShoppingCartUid}));
+                result => Ok(new {Uid = result.ShoppingCartUid}));
         }
 
         /// <summary>
@@ -74,10 +74,10 @@ namespace Shopping.Webapi.Controllers
         /// </summary>
         /// <param name="uid"> The uid of the shopping cart to empty </param>
         /// <returns> Ok if the cart was emptied </returns>
-        [HttpDelete("{uid}/empty")]
+        [HttpPost("{uid}/empty")]
         public async Task<IActionResult> Empty(Guid uid)
         {
-            return MapToResult(await _mediator.Send(new DeleteShoppingCartCommand(uid)), 
+            return MapToResult(await _mediator.Send(new EmptyShoppingCartCommand(uid, DateTimeOffset.UtcNow)), 
                 result => Ok());
         }
     }

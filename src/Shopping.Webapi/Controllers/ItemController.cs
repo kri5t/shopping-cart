@@ -57,7 +57,7 @@ namespace Shopping.Webapi.Controllers
         {
             return MapToResult(
                 await _mediator.Send(new CreateItemCommand(shoppingCartUid, DateTimeOffset.UtcNow, model.Description, model.Quantity)), 
-                result => Ok(new {result.ItemUid}));
+                result => Ok(new {Uid = result.ItemUid}));
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Shopping.Webapi.Controllers
         /// <param name="quantity"> The quantity to update item with </param>
         /// <returns> Returns ok when done </returns>
         [HttpPut("{uid}")]
-        public async Task<IActionResult> Put(Guid uid, [FromBody]UpdateItemRequestModel model)
+        public async Task<IActionResult> Put(Guid uid, [FromBody] UpdateItemRequestModel model)
         {
             return MapToResult(
                 await _mediator.Send(new UpdateItemCommand(DateTimeOffset.UtcNow, uid, model.Description, model.Quantity)), 
