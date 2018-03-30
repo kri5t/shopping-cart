@@ -6,15 +6,15 @@
 # Run
 Run xUnit Tests:
 
-`dotnet build &amp;&amp; ( cd ./src/Shopping.UnitTest/ && dotnet xunit )`
+`dotnet build && ( cd ./src/Shopping.UnitTest/ && dotnet xunit )`
 
 Run WebApi:
 
-`dotnet build &amp;&amp; (cd ./src/Shopping.Webapi/ && dotnet run)`
+`dotnet build && (cd ./src/Shopping.Webapi/ && dotnet run)`
 
 Run DesktopClient:
 
-`dotnet build &amp;&amp; (cd ./src/Shopping.DesktopClient/ && dotnet run)`
+`dotnet build && (cd ./src/Shopping.DesktopClient/ && dotnet run)`
 
 # TODO
 * Unit tests for proxy project
