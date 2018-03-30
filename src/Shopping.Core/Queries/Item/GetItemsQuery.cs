@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Infrastructure.Mediation;
-using Shopping.Core.Responses;
 using Shopping.Database;
+using Shopping.Models.Responses;
 
 namespace Shopping.Core.Queries.Item
 {
@@ -26,10 +27,12 @@ namespace Shopping.Core.Queries.Item
     public class GetItemsQueryHandler : BaseHandler<GetItemsQuery, GetItemsResponse>
     {
         private readonly DatabaseContext _databaseContext;
-        
-        public GetItemsQueryHandler(DatabaseContext databaseContext)
+        private readonly IMapper _mapper;
+
+        public GetItemsQueryHandler(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
+            _mapper = mapper;
         }
         
         public override async Task<GetItemsResponse> Handle(GetItemsQuery request, CancellationToken cancellationToken)
@@ -43,7 +46,7 @@ namespace Shopping.Core.Queries.Item
 
             return new GetItemsResponse
             {
-                Items = shoppingCart.Items.Select(i => new ItemResponse(i)).ToList()
+                Items = shoppingCart.Items.Select(i => _mapper.Map<Database.Models.Item, ItemResponse>(i)).ToList()
             };
         }
     }

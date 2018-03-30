@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Shopping.Core.Queries;
+using Shopping.Core.Queries.ShoppingCart;
 using Shopping.Database;
 using Shopping.UnitTest.Helpers;
 using Shopping.UnitTest.Infrastructure;
@@ -16,11 +18,12 @@ namespace Shopping.UnitTest.Queries.ShoppingCart
         private readonly GetShoppingCartsQueryHandler _sut;
         private readonly Guid _uid = Guid.NewGuid();
         private readonly DateTimeOffset _createdDate = DateTimeOffset.UtcNow;
-
+        private readonly IMapper _mapper = AutoMapperFactory.Get();
+        
         public GetShoppingCartsQueryTest()
         {
             _context = Context();
-            _sut = new GetShoppingCartsQueryHandler(_context);
+            _sut = new GetShoppingCartsQueryHandler(_context, _mapper);
         }
 
         [Fact]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Shopping.Core.Infrastructure.Mediation;
 using Shopping.Core.Queries.Item;
 using Shopping.Database;
@@ -17,12 +18,13 @@ namespace Shopping.UnitTest.Queries.Item
         private readonly DateTimeOffset _createdDate = DateTimeOffset.UtcNow;
         private const string Description = "Something";
         private const int Quantity = 2;
+        private readonly IMapper _mapper = AutoMapperFactory.Get();
 
         public GetItemsQueryTest()
         {
             var context = Context();
             context.AddShoppingCartToContext(_createdDate, _uid, true, Description, Quantity);
-            _sut = new GetItemsQueryHandler(context);
+            _sut = new GetItemsQueryHandler(context, _mapper);
         }
 
         [Fact]

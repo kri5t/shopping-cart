@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Infrastructure.Mediation;
-using Shopping.Core.Responses;
 using Shopping.Database;
+using Shopping.Models.Responses;
 
 namespace Shopping.Core.Queries.ShoppingCart
 {
@@ -24,10 +25,12 @@ namespace Shopping.Core.Queries.ShoppingCart
     public class GetShoppingCartQueryHandler : BaseHandler<GetShoppingCartQuery, GetShoppingCartResponse>
     {
         private readonly DatabaseContext _databaseContext;
+        private readonly IMapper _mapper;
 
-        public GetShoppingCartQueryHandler(DatabaseContext databaseContext)
+        public GetShoppingCartQueryHandler(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
+            _mapper = mapper;
         }
         
         public override async Task<GetShoppingCartResponse> Handle(GetShoppingCartQuery request, CancellationToken cancellationToken)
@@ -45,7 +48,7 @@ namespace Shopping.Core.Queries.ShoppingCart
 
             return new GetShoppingCartResponse
             {
-                ShoppingCartResponse = new ShoppingCartResponse(shoppingCart)
+                ShoppingCartResponse = _mapper.Map<Database.Models.ShoppingCart, ShoppingCartResponse>(shoppingCart)
             };
         }
     }

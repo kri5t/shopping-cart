@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Infrastructure.Mediation;
-using Shopping.Core.Responses;
 using Shopping.Database;
+using Shopping.Models.Responses;
 
 namespace Shopping.Core.Queries.Item
 {
@@ -24,10 +25,12 @@ namespace Shopping.Core.Queries.Item
     public class GetItemQueryHandler : BaseHandler<GetItemQuery, GetItemResponse>
     {
         private readonly DatabaseContext _databaseContext;
-        
-        public GetItemQueryHandler(DatabaseContext databaseContext)
+        private readonly IMapper _mapper;
+
+        public GetItemQueryHandler(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
+            _mapper = mapper;
         }
         
         public override async Task<GetItemResponse> Handle(GetItemQuery request, CancellationToken cancellationToken)
@@ -38,7 +41,7 @@ namespace Shopping.Core.Queries.Item
 
             return new GetItemResponse
             {
-                ItemResponse = new ItemResponse(item)
+                ItemResponse = _mapper.Map<Database.Models.Item, ItemResponse>(item)
             };
         }
     }

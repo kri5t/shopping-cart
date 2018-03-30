@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Shopping.Core.Responses;
+using Shopping.Models.Responses;
 using Xunit;
 
 namespace Shopping.UnitTest.Helpers

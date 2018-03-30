@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ namespace Shopping.Core.Infrastructure
         {
             var currentAssembly = typeof(CoreInstaller).GetTypeInfo().Assembly;
             services.AddMediatR(currentAssembly);
+            services.AddAutoMapper(currentAssembly);
             services.AddDbContext<DatabaseContext>(options => options.UseSqlite(databaseConnectionString));
             return services;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Shopping.Core.Queries.ShoppingCart;
 using Shopping.Database;
 using Shopping.UnitTest.Helpers;
@@ -15,11 +16,12 @@ namespace Shopping.UnitTest.Queries.ShoppingCart
         private readonly GetShoppingCartQueryHandler _sut;
         private readonly Guid _uid = Guid.NewGuid();
         private readonly DateTimeOffset _createdDate = DateTimeOffset.UtcNow;
-
+        private readonly IMapper _mapper = AutoMapperFactory.Get();
+        
         public GetShoppingCartQueryTest()
         {
             _context = Context();
-            _sut = new GetShoppingCartQueryHandler(_context);
+            _sut = new GetShoppingCartQueryHandler(_context, _mapper);
         }
 
         [Fact]

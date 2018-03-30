@@ -2,14 +2,15 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Infrastructure.Mediation;
-using Shopping.Core.Responses;
 using Shopping.Database;
+using Shopping.Models.Responses;
 
-namespace Shopping.Core.Queries
+namespace Shopping.Core.Queries.ShoppingCart
 {
     public class GetShoppingCartsQuery : IRequest<GetShoppingCartsResponse>
     {
@@ -25,10 +26,12 @@ namespace Shopping.Core.Queries
     public class GetShoppingCartsQueryHandler : BaseHandler<GetShoppingCartsQuery, GetShoppingCartsResponse>
     {
         private readonly DatabaseContext _databaseContext;
+        private readonly IMapper _mapper;
 
-        public GetShoppingCartsQueryHandler(DatabaseContext databaseContext)
+        public GetShoppingCartsQueryHandler(DatabaseContext databaseContext, IMapper mapper)
         {
             _databaseContext = databaseContext;
+            _mapper = mapper;
         }
         public override Task<GetShoppingCartsResponse> Handle(GetShoppingCartsQuery request, CancellationToken cancellationToken)
         {
@@ -37,13 +40,13 @@ namespace Shopping.Core.Queries
             {
                 shoppingCarts = _databaseContext.ShoppingCarts
                     .Include(sc => sc.Items)
-                    .Select(sc => new ShoppingCartResponse(sc))
+                    .Select(sc => _mapper.Map<Database.Models.ShoppingCart, ShoppingCartResponse>(sc))
                     .ToList();
             }
             else
             {
                 shoppingCarts = _databaseContext.ShoppingCarts
-                    .Select(sc => new ShoppingCartResponse(sc))
+                    .Select(sc => _mapper.Map<Database.Models.ShoppingCart, ShoppingCartResponse>(sc))
                     .ToList();
             }
             return Task.FromResult(new GetShoppingCartsResponse
